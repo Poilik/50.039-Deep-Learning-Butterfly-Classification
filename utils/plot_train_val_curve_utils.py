@@ -1,0 +1,62 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+#Plotting train and val values on same graphs, one each for loss, f1 score and f2 score
+def plot_training_curves(results, class_idx=1, class_name="1_hybrid"):
+    """
+    Expects results from train_and_evaluate in this order:
+    (
+        train_loss_list,
+        val_loss_list,
+        train_f1_macro_list,
+        val_f1_macro_list,
+        train_f1_per_class_list,
+        val_f1_per_class_list,
+        train_f2_macro_list,
+        val_f2_macro_list,
+        train_f2_per_class_list,
+        val_f2_per_class_list
+    )
+    """
+    (
+        train_loss, val_loss,
+        _, _,
+        train_f1_per_class, val_f1_per_class,
+        _, _,
+        train_f2_per_class, val_f2_per_class
+    ) = results
+
+    train_f1_c = [float(np.array(x)[class_idx]) for x in train_f1_per_class]
+    val_f1_c   = [float(np.array(x)[class_idx]) for x in val_f1_per_class]
+    train_f2_c = [float(np.array(x)[class_idx]) for x in train_f2_per_class]
+    val_f2_c   = [float(np.array(x)[class_idx]) for x in val_f2_per_class]
+
+    epochs = range(1, len(train_loss) + 1)
+
+    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+
+    axes[0].plot(epochs, train_loss, label="Train Loss")
+    axes[0].plot(epochs, val_loss, label="Val Loss")
+    axes[0].set_title("Loss")
+    axes[0].set_xlabel("Epoch")
+    axes[0].set_ylabel("Loss")
+    axes[0].grid(alpha=0.3)
+    axes[0].legend()
+
+    axes[1].plot(epochs, train_f1_c, label=f"Train F1 ({class_name})")
+    axes[1].plot(epochs, val_f1_c, label=f"Val F1 ({class_name})")
+    axes[1].set_title(f"F1 Class {class_idx}: {class_name}")
+    axes[1].set_xlabel("Epoch")
+    axes[1].set_ylabel("F1")
+    axes[1].set_ylim(0, 1)
+    axes[1].grid(alpha=0.3)
+    axes[1].legend()
+
+    axes[2].plot(epochs, train_f2_c, label=f"Train F2 ({class_name})")
+    axes[2].plot(epochs, val_f2_c, label=f"Val F2 ({class_name})")
+    axes[2].set_title(f"F2 Class {class_idx}: {class_name}")
+    axes[2].set_xlabel("Epoch")
+    axes[2].set_ylabel("F2")
+    axes[2].set_ylim(0, 1)
+    axes[2].grid(alpha=0.3)
+    axes[2].legend()
