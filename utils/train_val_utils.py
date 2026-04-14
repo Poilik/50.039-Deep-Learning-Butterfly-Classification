@@ -50,7 +50,6 @@ def train_and_evaluate(
     class_weights[hybrid_idx] = class_weights_val
 
     criterion = nn.CrossEntropyLoss(weight=class_weights)
-    criterion_show = nn.CrossEntropyLoss()
 
     train_f1_macro_metric = MulticlassF1Score(num_classes=2, average="macro").to(device)
     train_f1_per_class_metric = MulticlassF1Score(num_classes=2, average=None).to(device)
@@ -76,11 +75,10 @@ def train_and_evaluate(
             outputs = model(images)
 
             loss = criterion(outputs, labels)
-            loss_show = criterion_show(outputs, labels)
             loss.backward() 
             optimizer.step()
 
-            epoch_train_loss += loss_show.item()
+            epoch_train_loss += loss.item()
 
         avg_train_loss = epoch_train_loss / len(train_loader)
         train_loss_list.append(avg_train_loss)
@@ -117,7 +115,7 @@ def train_and_evaluate(
             for images, labels in val_loader:
                 images, labels = images.to(device), labels.to(device)
                 outputs = model(images)
-                loss = criterion_show(outputs, labels)
+                loss = criterion(outputs, labels)
                 epoch_val_loss += loss.item()
                 _, predicted = torch.max(outputs, 1)
                 val_f1_macro_metric.update(predicted, labels)
