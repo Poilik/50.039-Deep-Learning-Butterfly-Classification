@@ -5,7 +5,7 @@ import torch.nn as nn
 from torchmetrics.classification import MulticlassF1Score
 from torchmetrics.classification import MulticlassFBetaScore
 from utils.dataloader_utils import dataloader
-
+torch.manual_seed(42)
 #train using weighted cross entropy loss but report balanced cross entropy loss, 
 # save history of train and val loss, f1 macro, f1 per class, f2 macro and f2 per class for each epoch, 
 # also implement early stopping based on val_f2_class1 with patience of 6 epochs and min_delta of 0.001, 
@@ -25,7 +25,8 @@ def train_and_evaluate(
     patience=6,
     min_delta=1e-3,
     early_stop_metric="val_f2_class1",
-    restore_best_weights=True):
+    restore_best_weights=True,
+    embeddings = None):
 
     _, _, _, train_loader, val_loader, _ = dataloader(
         train_set=train_set,
@@ -72,6 +73,8 @@ def train_and_evaluate(
         for images, labels in train_loader:
             images, labels = images.to(device), labels.to(device)
             optimizer.zero_grad()
+            if (embeddings):
+                images = embeddings(images)
             outputs = model(images)
 
             loss = criterion(outputs, labels)
@@ -92,6 +95,8 @@ def train_and_evaluate(
         with torch.no_grad():
             for images, labels in train_loader:
                 images, labels = images.to(device), labels.to(device)
+                if (embeddings):
+                    images = embeddings(images)
                 outputs = model(images)
                 preds = outputs.argmax(dim=1)
 
@@ -114,6 +119,8 @@ def train_and_evaluate(
         with torch.no_grad():
             for images, labels in val_loader:
                 images, labels = images.to(device), labels.to(device)
+                if (embeddings):
+                    images = embeddings(images)
                 outputs = model(images)
                 loss = criterion(outputs, labels)
                 epoch_val_loss += loss.item()
@@ -187,7 +194,6 @@ def train_and_evaluate(
 
         if (epoch + 1) % 5 == 0:
             print(f"Epoch [{epoch+1}/{num_epochs}], "
-                  f"Epoch [{epoch+1}/{num_epochs}], "
                 f"Train Loss: {avg_train_loss:.4f}, "
                 f"Val Loss: {avg_val_loss:.4f}, "
                 f"Train F1-Macro: {train_f1_macro_list[-1]:.4f}, "
