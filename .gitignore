@@ -2,3 +2,5 @@ butterfly_anomaly_image/
 butterfly_anomaly_image_new/
 butterfly_anomaly_image_resized/
 utils/__pycache__/
+saved_models/
+final_dataset/

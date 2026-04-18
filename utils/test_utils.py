@@ -4,7 +4,7 @@ from torchmetrics.classification import MulticlassFBetaScore
 from torch.utils.data import DataLoader
 
 #evaluate f1 and f2 score for test set
-def evaluate_split(model, dataset, batch_size, criterion, device, num_workers=4):
+def evaluate_split(model, dataset, batch_size, criterion, device, num_workers=4, embeddings = None):
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
     f1_macro = MulticlassF1Score(num_classes=2, average="macro").to(device)
@@ -22,6 +22,8 @@ def evaluate_split(model, dataset, batch_size, criterion, device, num_workers=4)
     with torch.no_grad():
         for images, labels in loader:
             images, labels = images.to(device), labels.to(device)
+            if (embeddings):
+                images = embeddings(images)
             outputs = model(images)
 
             loss = criterion(outputs, labels)
