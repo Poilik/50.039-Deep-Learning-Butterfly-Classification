@@ -3,7 +3,7 @@ import pickle
 import os
 
 class AE(nn.Module):
-    def __init__(self, latent_channels=64, dropout_p=0.1, noise_std=0.02):
+    def __init__(self, latent_channels=64, noise_std=0.02):
         super().__init__()
         self.noise_std = noise_std
 
@@ -17,19 +17,12 @@ class AE(nn.Module):
             nn.Conv2d(64, 128, 4, 2, 1),
             nn.BatchNorm2d(128),
             nn.LeakyReLU(0.1, inplace=True),
-            nn.Conv2d(128, 256, 4, 2, 1),
-            nn.BatchNorm2d(256),
+            nn.Conv2d(128, latent_channels, kernel_size=1, stride=1, padding=0),
             nn.LeakyReLU(0.1, inplace=True),
-            nn.Conv2d(256, latent_channels, kernel_size=1, stride=1, padding=0),
-            nn.LeakyReLU(0.1, inplace=True),
-            nn.Dropout2d(p=dropout_p),
         )
 
         self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(latent_channels, 256, kernel_size=1, stride=1, padding=0),
-            nn.LeakyReLU(0.1, inplace=True),
-            nn.ConvTranspose2d(256, 128, 4, 2, 1),
-            nn.BatchNorm2d(128),
+            nn.ConvTranspose2d(latent_channels, 128, kernel_size=1, stride=1, padding=0),
             nn.LeakyReLU(0.1, inplace=True),
             nn.ConvTranspose2d(128, 64, 4, 2, 1),
             nn.BatchNorm2d(64),

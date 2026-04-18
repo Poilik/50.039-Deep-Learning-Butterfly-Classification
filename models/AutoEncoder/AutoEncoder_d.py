@@ -88,10 +88,10 @@ class AE(nn.Module):
             noise = self.noise_std * nn.init.normal_(x.new_empty(x.size()))
             x = (x + noise).clamp(0.0, 1.0)
 
-        e1 = self.enc1(x)   # 64 -> 32
-        e2 = self.enc2(e1)  # 32 -> 16
-        e3 = self.enc3(e2)  # 16 -> 8
-        e4 = self.enc4(e3)  # 8 -> 4
+        e1 = self.enc1(x) 
+        e2 = self.enc2(e1)
+        e3 = self.enc3(e2)
+        e4 = self.enc4(e3) 
 
         z = self.to_latent(e4)
         d4 = self.from_latent(z)

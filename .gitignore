@@ -4,3 +4,5 @@ butterfly_anomaly_image_resized/
 utils/__pycache__/
 pretrained_vit_results/
 saved_models/
+corrupted_images/
+.venv/
