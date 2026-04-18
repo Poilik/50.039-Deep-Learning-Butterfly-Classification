@@ -34,7 +34,7 @@ The `saved_models/` folder is too large to store in GitHub and the eDimension po
 
 To use the trained checkpoints:
 
-1. Download the folder from this OneDrive link: https://tinyurl.com/yc8yyxbp
+1. Download the folder from this OneDrive link: https://tinyurl.com/mrywss2y
 2. Move the `saved_models/` folder into the root directory of this project.
 3. Unzip all the folders within `saved_models/`
 
