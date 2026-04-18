@@ -5,7 +5,7 @@ This project classifies butterfly images into two classes:
 - `0_non-hybrid`
 - `1_hybrid`
 
-It includes dataset preparation, image resizing, training, hyperparameter tuning, checkpoint saving, best-model selection, and test evaluation across several model families, including CNN, ResNet, AutoEncoder, VGG-16, AlexNet, CoCa, and EfficientNet-based experiments.
+It includes dataset preparation, image resizing, training, hyperparameter tuning, checkpoint saving, best-model selection, and test evaluation across several model families, including CNN, ResNet, AutoEncoder, ViT, ConvNeXt-based experiments.
 
 ## Project Structure
 
