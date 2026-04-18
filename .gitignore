@@ -1,4 +1,6 @@
 butterfly_anomaly_image/
 butterfly_anomaly_image_new/
-butterfly_anomaly_image_resized/
+corrupted_images/
 utils/__pycache__/
+.venv/
+saved_models/
