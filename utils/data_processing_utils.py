@@ -27,9 +27,9 @@ def find_corrupted_images(root_dir):
 def split_dataset(
     input_dir,
     output_dir,
-    train_ratio=0.7,
-    val_ratio=0.15,
-    test_ratio=0.15,
+    train_ratio=0.8,
+    val_ratio=0.1,
+    test_ratio=0.1,
     seed=42,
     dry_run=False
 ):
