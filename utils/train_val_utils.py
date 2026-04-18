@@ -6,7 +6,7 @@ from torchmetrics.classification import MulticlassF1Score
 from torchmetrics.classification import MulticlassFBetaScore
 from utils.dataloader_utils import dataloader
 torch.manual_seed(42)
-#train using weighted cross entropy loss but report balanced cross entropy loss, 
+#train using weighted cross entropy loss, 
 # save history of train and val loss, f1 macro, f1 per class, f2 macro and f2 per class for each epoch, 
 # also implement early stopping based on val_f2_class1 with patience of 6 epochs and min_delta of 0.001, 
 # save best model checkpoint based on val_f2_class1, also save checkpoint every 5 epochs with all history so far
