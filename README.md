@@ -34,9 +34,9 @@ The `saved_models/` folder is too large to store in GitHub and the eDimension po
 
 To use the trained checkpoints:
 
-1. Download the zip folder from this OneDrive link: https://tinyurl.com/yc8yyxbp
-2. Unzip the folder.
-3. Move the `saved_models/` folder into the root directory of this project.
+1. Download the folder from this OneDrive link: https://tinyurl.com/yc8yyxbp
+2. Move the `saved_models/` folder into the root directory of this project.
+3. Unzip all the folders within `saved_models/`
 
 The CSV files used to download the images are stored in `butterfly_image_csv/`.
 
