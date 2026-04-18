@@ -82,7 +82,6 @@ def split_dataset(
 
     print("Dry run complete!" if dry_run else "Dataset split complete!")
 
-
 def resize_images(src_root, dst_root, size=(224, 224)):
     """Resize all images in src_root and save to dst_root while preserving directory structure"""
     resize_tf = transforms.Resize(size)

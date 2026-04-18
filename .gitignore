@@ -1,0 +1,6 @@
+butterfly_anomaly_image/
+butterfly_anomaly_image_new/
+butterfly_anomaly_image_resized/
+utils/__pycache__/
+final_binary_vit_model/
+pretrained_vit_results/
